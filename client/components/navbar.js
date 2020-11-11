@@ -53,13 +53,16 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             )}
           </div>
           <div id="gearCategories">
+            <Link to="/products" className="gearLink">
+              All Products
+            </Link>
             <div className="gearLink">Tents</div>
             <div className="gearLink">Footwear</div>
             <div className="gearLink">Backpacks</div>
             <div className="gearLink">Cooking</div>
             <div className="gearLink">Clothing</div>
             <div className="gearLink">Jackets</div>
-            <div className="gearLink">Hats</div>
+            <div className="gearLink">Headwear</div>
           </div>
         </div>
       </div>

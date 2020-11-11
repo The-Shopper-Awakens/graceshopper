@@ -8,14 +8,62 @@ async function seed() {
   console.log('db synced!')
 
   const products = await Promise.all([
-    Product.create({name: 'Blue Winter Hat', price: 20.00, category: 'Hats', imageUrl: '../public/images/bluewinterhat.jpg', inventory: 20}),
-    Product.create({name: 'Leather Gloves', price: 10.00, category: 'Gloves', imageUrl: '../public/images/leathergloves.jpg', inventory: 10}),
-    Product.create({name: 'Men\'s Winter Boot', price: 30.00, category: 'Boots', imageUrl: '../public/images/mensboot.jpg', inventory: 5}),
-    Product.create({name: 'Men\'s Winter Coat', price: 70.00, category: 'Coats', imageUrl: '../public/images/menswintercoat.jpg', inventory: 30}),
-    Product.create({name: 'Outside Work Gloves', price: 15.00, category: 'Gloves', imageUrl: '../public/images/outsideworkgloves.jpg', inventory: 7}),
-    Product.create({name: 'Red Winter Hat', price: 20.00, category: 'Hats', imageUrl: '../public/images/redwinterhat.jpg', inventory: 20}),
-    Product.create({name: 'Women\'s Winter Boot', price: 30.00, category: 'Boots', imageUrl: '../public/images/womensboot.jpg', inventory: 5}),
-    Product.create({name: 'Women\'s Winter Coat', price: 70.00, category: 'Coats', imageUrl: '../public/images/womenswintercoat.jpg', inventory: 30})
+    Product.create({
+      name: 'Blue Winter Hat',
+      price: 20.0,
+      category: 'Hats',
+      imageUrl: '../public/images/bluewinterhat.jpg',
+      inventory: 20
+    }),
+    Product.create({
+      name: 'Leather Gloves',
+      price: 10.0,
+      category: 'Gloves',
+      imageUrl: '../public/images/leathergloves.jpg',
+      inventory: 10
+    }),
+    Product.create({
+      name: "Men's Winter Boot",
+      price: 30.0,
+      category: 'Boots',
+      imageUrl: '../public/images/mensboot.jpg',
+      inventory: 5
+    }),
+    Product.create({
+      name: "Men's Winter Coat",
+      price: 70.0,
+      category: 'Coats',
+      imageUrl: '../public/images/menswintercoat.jpg',
+      inventory: 30
+    }),
+    Product.create({
+      name: 'Outside Work Gloves',
+      price: 15.0,
+      category: 'Gloves',
+      imageUrl: '../public/images/outsideworkgloves.jpg',
+      inventory: 7
+    }),
+    Product.create({
+      name: 'Red Winter Hat',
+      price: 20.0,
+      category: 'Hats',
+      imageUrl: '../public/images/redwinterhat.jpg',
+      inventory: 20
+    }),
+    Product.create({
+      name: "Women's Winter Boot",
+      price: 30.0,
+      category: 'Boots',
+      imageUrl: '../public/images/womensboot.jpg',
+      inventory: 5
+    }),
+    Product.create({
+      name: "Women's Winter Coat",
+      price: 70.0,
+      category: 'Coats',
+      imageUrl: '../public/images/womenswintercoat.jpg',
+      inventory: 30
+    })
   ])
 
   const users = await Promise.all([
