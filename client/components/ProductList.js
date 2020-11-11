@@ -15,7 +15,7 @@ export default function Product(props) {
         <Link to={`/products/${singleProduct.id}`}>
           <h4 className="media-heading">{singleProduct.name}</h4>
         </Link>
-        <p>{`$${singleProduct.price / 100}`}</p>
+        <p>{`$${singleProduct.price}`}</p>
       </div>
     </li>
   )
