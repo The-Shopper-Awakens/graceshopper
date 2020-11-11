@@ -1,35 +1,33 @@
-import Axios from "axios";
+import Axios from 'axios'
 
-const initialState = [];
+const initialState = []
 
-const SET_PRODUCTS = "SET_PRODUCTS";
-const GET_PRODUCTS = "GET_PRODUCTS";
+const SET_PRODUCTS = 'SET_PRODUCTS'
+const GET_PRODUCTS = 'GET_PRODUCTS'
 
-export const setProducts = (products) => {
+export const setProducts = products => {
   return {
     type: SET_PRODUCTS,
-    products,
-  };
-};
-
+    products
+  }
+}
 
 export const fetchProducts = () => {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
-      const { data } = await Axios.get("/api/product");
-      dispatch(setProducts(data));
+      const {data} = await Axios.get('/api/products')
+      dispatch(setProducts(data))
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
-  };
-};
-
+  }
+}
 
 export default function productsReducer(state = initialState, action) {
   switch (action.type) {
     case SET_PRODUCTS:
-      return action.products;
+      return action.products
     default:
-      return state;
+      return state
   }
 }

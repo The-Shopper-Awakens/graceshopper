@@ -123,9 +123,44 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: red solid 1px;
 }
 
 .cartBox {
-  border: solid orange 1px;
+  display: flex;
+  width: 80%;
+  padding: 1em;
+  border: solid black 0.25em;
+}
+
+#cartLeft {
+  flex: 7;
+}
+
+#cartRight {
+  flex: 3;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+#cartTable {
+  width: 100%;
+  border: 1px solid black;
+}
+
+#cartTable > tbody,
+th,
+td {
+  border: 1px solid black;
+}
+
+.checkoutButton {
+  padding: 1.5em;
+  background-color: rgb(255, 238, 193);
+  margin: 1em;
+}
+
+#cartTotal,
+#totalAmmount {
+  font-weight: bold;
 }
