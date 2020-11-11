@@ -2,64 +2,62 @@
 
 const db = require('../server/db')
 const {User, Product} = require('../server/db/models')
-
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
-
   const products = await Promise.all([
     Product.create({
       name: 'Blue Winter Hat',
-      price: 20.0,
+      price: 20.5,
       category: 'Hats',
       imageUrl: '/images/bluewinterhat.jpg',
       inventory: 20
     }),
     Product.create({
       name: 'Leather Gloves',
-      price: 10.0,
+      price: 10.1,
       category: 'Gloves',
       imageUrl: '/images/leathergloves.jpg',
       inventory: 10
     }),
     Product.create({
       name: "Men's Winter Boot",
-      price: 30.0,
+      price: 30.76,
       category: 'Boots',
       imageUrl: '/images/mensboot.jpg',
       inventory: 5
     }),
     Product.create({
       name: "Men's Winter Coat",
-      price: 70.0,
+      price: 70.1,
       category: 'Coats',
       imageUrl: '/images/menswintercoat.jpg',
       inventory: 30
     }),
     Product.create({
       name: 'Outside Work Gloves',
-      price: 15.0,
+      price: 15.5,
       category: 'Gloves',
       imageUrl: '/images/outsideworkgloves.jpg',
       inventory: 7
     }),
     Product.create({
       name: 'Red Winter Hat',
-      price: 20.0,
+      price: 20.79,
       category: 'Hats',
       imageUrl: '/images/redwinterhat.jpg',
       inventory: 20
     }),
     Product.create({
       name: "Women's Winter Boot",
-      price: 30.0,
+      price: 30.55,
       category: 'Boots',
       imageUrl: '/images/womensboot.jpg',
       inventory: 5
     }),
     Product.create({
       name: "Women's Winter Coat",
-      price: 70.0,
+      price: 70.16,
       category: 'Coats',
       imageUrl: '/images/womenswintercoat.jpg',
       inventory: 30
