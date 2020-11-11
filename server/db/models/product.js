@@ -10,7 +10,7 @@ const Product = db.define('Product', {
     }
   },
   price: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
       notEmpty: true
@@ -28,7 +28,7 @@ const Product = db.define('Product', {
     defaultValue: '/images/defaultProduct.jpg'
   },
   inventory: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
       min: 0
@@ -36,4 +36,8 @@ const Product = db.define('Product', {
   }
 })
 
+Product.beforeCreate(product => {
+  product.price = parseInt(product.price * 10) //multiplies price by an additional factor of 10
+})
+//product after hook
 module.exports = Product
