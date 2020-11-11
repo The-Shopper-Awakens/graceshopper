@@ -34,7 +34,7 @@ nav {
 #navBox {
   width: 80%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -48,6 +48,7 @@ nav {
 
 #logo {
   margin: 1em;
+  margin-right: 1.5em;
   margin-bottom: 0.25em;
   width: 11em;
 }
@@ -85,6 +86,20 @@ main {
   font-size: 1.5em;
   color: black;
   color: #c0c0c0;
+}
+
+#cartPreview {
+  display: none;
+  position: absolute;
+  right: 2rem;
+  width: 20em;
+  height: 10em;
+  background-color: rgb(255, 213, 193);
+  border: solid black 2px;
+}
+
+#cartLink:hover + #cartPreview {
+  display: block;
 }
 
 #rightSide {
@@ -163,4 +178,12 @@ td {
 #cartTotal,
 #totalAmmount {
   font-weight: bold;
+}
+
+#cartPreviewBox {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  line-height: 2em;
 }
