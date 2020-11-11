@@ -33,5 +33,7 @@ const Product = db.define("Product", {
       validate: {
           min: 0
       }
-    },
-  });
+    }
+  })
+
+  module.exports = Product;
