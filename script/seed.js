@@ -7,42 +7,68 @@ async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
-
   const products = await Promise.all([
     Product.create({
-      name: 'Tent1',
-      price: 200,
-      category: 'tents',
-      inventory: 1
-    }),
-    Product.create({
-      name: 'Tent2',
-      price: 300,
-      category: 'tents',
-      inventory: 3
-    }),
-    Product.create({
-      name: 'Hat',
-      price: 20,
-      category: 'headwear',
-      inventory: 50
-    }),
-    Product.create({
-      name: 'Boots',
-      price: 150,
-      category: 'footwear',
+      name: 'Blue Winter Hat',
+      price: 20.0,
+      category: 'Hats',
+      imageUrl: '../public/images/bluewinterhat.jpg',
       inventory: 20
     }),
     Product.create({
-      name: 'Camp Stove',
-      price: 100,
-      category: 'stoves',
+      name: 'Leather Gloves',
+      price: 10.0,
+      category: 'Gloves',
+      imageUrl: '../public/images/leathergloves.jpg',
+      inventory: 10
+    }),
+    Product.create({
+      name: "Men's Winter Boot",
+      price: 30.0,
+      category: 'Boots',
+      imageUrl: '../public/images/mensboot.jpg',
       inventory: 5
+    }),
+    Product.create({
+      name: "Men's Winter Coat",
+      price: 70.0,
+      category: 'Coats',
+      imageUrl: '../public/images/menswintercoat.jpg',
+      inventory: 30
+    }),
+    Product.create({
+      name: 'Outside Work Gloves',
+      price: 15.0,
+      category: 'Gloves',
+      imageUrl: '../public/images/outsideworkgloves.jpg',
+      inventory: 7
+    }),
+    Product.create({
+      name: 'Red Winter Hat',
+      price: 20.0,
+      category: 'Hats',
+      imageUrl: '../public/images/redwinterhat.jpg',
+      inventory: 20
+    }),
+    Product.create({
+      name: "Women's Winter Boot",
+      price: 30.0,
+      category: 'Boots',
+      imageUrl: '../public/images/womensboot.jpg',
+      inventory: 5
+    }),
+    Product.create({
+      name: "Women's Winter Coat",
+      price: 70.0,
+      category: 'Coats',
+      imageUrl: '../public/images/womenswintercoat.jpg',
+      inventory: 30
     })
+  ])
+
+  const users = await Promise.all([
+    User.create({email: 'cody@email.com', password: '123'}),
+    User.create({email: 'murphy@email.com', password: '123'})
   ])
 
   console.log(`seeded ${users.length} users`)

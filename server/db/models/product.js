@@ -25,7 +25,7 @@ const Product = db.define('Product', {
   },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue: '/images/defaultProduct.png'
+    defaultValue: '/images/defaultProduct.jpg'
   },
   inventory: {
     type: Sequelize.FLOAT,
