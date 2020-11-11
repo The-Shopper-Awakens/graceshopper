@@ -1,6 +1,37 @@
 const Sequelize = require("Sequelize");
 const db = require("../db");
 
-const Product = db.define('product', {
-    // Need to see how we set it up in excalidraw
-})
+const Product = db.define("Product", {
+    name: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    price: {
+      type: Sequelize.FLOAT,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    category: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    imageUrl: {
+      type: Sequelize.STRING,
+      defaultValue: "/images/defaultProduct.jpg",
+    },
+    inventory: {
+      type: Sequelize.FLOAT,
+      allowNull: false,
+      validate: {
+          min: 0
+      }
+    },
+  });
