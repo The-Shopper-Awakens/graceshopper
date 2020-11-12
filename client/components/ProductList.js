@@ -5,10 +5,12 @@ export default function Product(props) {
   const singleProduct = props.product
 
   return (
-    <li className="media">
+    <div className="media">
       <div className="media-left">
         <a href="#">
-          <img className="media-object" src={singleProduct.imageUrl} />
+          <Link to={`/products/${singleProduct.id}`}>
+            <img className="media-object" src={singleProduct.imageUrl} />
+          </Link>
         </a>
       </div>
       <div className="media-body">
@@ -17,6 +19,6 @@ export default function Product(props) {
         </Link>
         <p>{`$${singleProduct.price}`}</p>
       </div>
-    </li>
+    </div>
   )
 }
