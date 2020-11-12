@@ -11,6 +11,7 @@ class Product extends React.Component {
     const productId = this.props.match.params.productId
     this.props.getProduct(productId)
   }
+  handleAddToCart() {}
   render() {
     const product = this.props.product
     return !product.id ? (
@@ -20,6 +21,7 @@ class Product extends React.Component {
         <div>{product.name}</div>
         <div>{product.price}</div>
         <img src={product.imageUrl} />
+        <button type="submit">Add To Cart</button>
       </div>
     )
   }

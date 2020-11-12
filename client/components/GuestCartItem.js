@@ -1,6 +1,7 @@
+import {render} from 'enzyme'
 import React from 'react'
 
-class CartItem extends React.Component {
+class GuestCartItem extends React.Component {
   render() {
     return (
       <tr>
@@ -23,5 +24,4 @@ class CartItem extends React.Component {
     )
   }
 }
-
-export default CartItem
+export default GuestCartItem

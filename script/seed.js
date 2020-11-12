@@ -1,10 +1,11 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Product} = require('../server/db/models')
+const {User, Product, Order_Product, Order} = require('../server/db/models')
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
+
   const products = await Promise.all([
     Product.create({
       name: 'Blue Winter Hat',
@@ -69,8 +70,32 @@ async function seed() {
     User.create({email: 'murphy@email.com', password: '123'})
   ])
 
+  const orders = await Promise.all([
+    Order.create(),
+    Order.create({isOrder: true})
+  ])
+  // const cart = await Promise.all([
+  //   orders[1].addProduct(products[2], {through: {price: products.price}}),
+  //   orders[1].addProduct(products[5], {through: {price: products.price}}),
+  //   orders[1].addProduct(products[7], {through: {price: products.price}}),
+  //   orders[2].addProduct(products[2], {through: {price: products.price}}),
+  // ])
+  const cart = await Promise.all([
+    Order_Product.create({OrderId: 1, ProductId: 2, price: products[1].price}),
+    Order_Product.create({
+      OrderId: 1,
+      ProductId: 5,
+      quantity: 2,
+      price: products[4].price
+    }),
+    Order_Product.create({OrderId: 1, ProductId: 7, price: products[6].price}),
+    Order_Product.create({OrderId: 2, ProductId: 2, price: products[1].price})
+  ])
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${products.length} products`)
+  console.log(`seeded ${orders.length} orders`)
+  console.log(`seeded ${cart.length} products in cart`)
+
   console.log(`seeded successfully`)
 }
 
