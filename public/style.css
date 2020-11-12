@@ -187,3 +187,31 @@ td {
   text-align: center;
   line-height: 2em;
 }
+
+.qtyBox {
+  display: flex;
+}
+
+.cartButtons {
+  margin-left: 1em;
+  margin-right: -4em;
+  display: flex;
+}
+
+.upAndDown {
+  display: flex;
+  flex-direction: column;
+}
+
+.incrementQty {
+  height: 0.75em;
+}
+
+.decrementQty {
+  height: 0.75em;
+}
+
+.removeProduct {
+  background-color: red;
+  color: white;
+}
