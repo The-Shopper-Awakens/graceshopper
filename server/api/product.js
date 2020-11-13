@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Product} = require('../db/models')
+const {Product, User} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -11,6 +11,28 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.post('/', async (req, res, next) => {
+  if (req.user.userType === 'ADMIN') {
+    try {
+      const existingProduct = await Product.findOne({
+        where: {
+          name: req.body.name
+        }
+      })
+      if (existingProduct === null) {
+        const createdProduct = await Product.create(req.body)
+        res.status(201).send(createdProduct)
+      } else {
+        res.sendStatus(409)
+      }
+    } catch (err) {
+      next(err)
+    }
+  } else {
+    res.sendStatus(404)
+  }
+})
+
 router.get('/:productId', async (req, res) => {
   try {
     const id = req.params.productId
@@ -18,6 +40,57 @@ router.get('/:productId', async (req, res) => {
     res.json(product)
   } catch (error) {
     res.sendStatus(error)
+  }
+})
+
+router.delete('/:productId', async (req, res, next) => {
+  if (req.user.userType === 'ADMIN') {
+    try {
+      if (!Number.isInteger(parseInt(req.params.productId))) {
+        res.sendStatus(400)
+      }
+      const deleted = await Product.findOne({
+        where: {
+          id: parseInt(req.params.productId)
+        }
+      })
+      if (deleted) {
+        await Product.destroy({
+          where: {
+            id: parseInt(req.params.productId)
+          }
+        })
+        res.sendStatus(204)
+      } else {
+        res.sendStatus(404)
+      }
+    } catch (err) {
+      next(err)
+    }
+  } else {
+    res.sendStatus(404)
+  }
+})
+
+router.put('/:productId', async (req, res, next) => {
+  if (req.user.userType === 'ADMIN') {
+    try {
+      const updatedProduct = await Product.findOne({
+        where: {
+          id: req.params.productId
+        }
+      })
+      if (updatedProduct) {
+        await updatedProduct.update(req.body)
+        res.status(200).send(updatedProduct)
+      } else {
+        res.sendStatus(404)
+      }
+    } catch (err) {
+      next(err)
+    }
+  } else {
+    res.sendStatus(404)
   }
 })
 
