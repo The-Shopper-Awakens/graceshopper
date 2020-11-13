@@ -7,11 +7,9 @@ export default function Product(props) {
   return (
     <div className="media">
       <div className="media-left">
-        <a href="#">
-          <Link to={`/products/${singleProduct.id}`}>
-            <img className="media-object" src={singleProduct.imageUrl} />
-          </Link>
-        </a>
+        <Link to={`/products/${singleProduct.id}`}>
+          <img className="media-object" src={singleProduct.imageUrl} />
+        </Link>
       </div>
       <div className="media-body">
         <Link to={`/products/${singleProduct.id}`}>
