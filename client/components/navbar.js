@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import CartPreview from './cartPreview'
-
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
     <nav>

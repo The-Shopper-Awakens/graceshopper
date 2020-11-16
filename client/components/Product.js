@@ -2,12 +2,15 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProduct} from '../store/product'
 import EditProduct from './EditProduct'
+
+import {addItem} from '../store/cart' //this thunk should add the item to the cart
 // eslint-disable-next-line react/display-name
 class Product extends React.Component {
   constructor() {
     super()
+
     this.handleAddToLocalStorage = this.handleAddToLocalStorage.bind(this)
-    this.handleAddToCart = this.handleAddToCart.bind(this)
+    this.handleAddToCartButton = this.handleAddToCartButton.bind(this)
   }
   // handleEdit() {
   //   const productId = this.props.match.params.productId
@@ -51,6 +54,10 @@ class Product extends React.Component {
     const productId = this.props.match.params.productId
     this.props.getProduct(productId)
   }
+  handleAddToCartButton(productId) {
+    'invoking handleaddtocartButton'
+    this.props.addItemToCart(productId)
+  }
 
   render() {
     const product = this.props.product
@@ -59,14 +66,21 @@ class Product extends React.Component {
         <h1>No Product Found</h1>
       </div>
     ) : (
-      <div className="container">
+
+      <div className="container">      
+      <div className="singleProduct">
+
         <div>{product.name}</div>
         <div>Price: ${product.price.toFixed(2)}</div>
         <img src={product.imageUrl} />
+
         {this.props.isLoggedIn ? (
-          <button type="button" onClick={this.handleAddToCart}>
-            Add To Cart
-          </button>
+          <button
+          type="submit"
+          onClick={() => this.handleAddToCartButton(product.id)}
+        >
+          Add To Cart
+        </button>
         ) : (
           <button type="button" onClick={this.handleAddToLocalStorage}>
             Add To Cart
@@ -80,21 +94,24 @@ class Product extends React.Component {
           <div />
         )}
       </div>
+      </div>
     )
   }
 }
 
-const mapStateToProps = state => {
+const mapProduct = state => {
   return {
     product: state.product,
     isLoggedIn: !!state.user.id,
     user: state.user
   }
 }
+
 const mapDispatchToProps = dispatch => {
   return {
-    getProduct: productId => dispatch(fetchProduct(productId))
+    getProduct: productId => dispatch(fetchProduct(productId)),
+    addItemToCart: productId => dispatch(addItem(productId))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Product)
+export default connect(mapProduct, mapDispatchToProps)(Product)

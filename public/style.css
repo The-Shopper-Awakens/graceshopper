@@ -6,6 +6,10 @@ a {
   text-decoration: none;
 }
 
+img {
+  width: 25%;
+}
+
 body {
   background: white;
   height: 100%;
@@ -200,6 +204,9 @@ td {
   text-align: center;
   line-height: 2em;
   align-content: space-between;
+}
+.singleProduct {
+  text-align: center;
 }
 
 .media-object {

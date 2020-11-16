@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 class CartPreview extends React.Component {
   constructor() {
     super()
