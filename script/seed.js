@@ -1,5 +1,5 @@
 'use strict'
-
+const faker = require('faker')
 const db = require('../server/db')
 const {User, Product, Order_Product, Order} = require('../server/db/models')
 async function seed() {
@@ -64,17 +64,40 @@ async function seed() {
       inventory: 30
     })
   ])
+  for (let i = 0; i < 101; i++) {
+    const product = await Product.create({
+      name: faker.commerce.productName(),
+      price: faker.commerce.price(),
+      category: faker.commerce.department(),
+      imageUrl: faker.random.image(),
+      inventory: faker.random.number()
+    })
+  }
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'}),
-    User.create({email: 'admin', password: 'admin', userType: 'ADMIN'})
-  ])
+  //generate fake user data using faker
+  let users = [] //generate fake user data
+  for (let i = 0; i < 50; i++) {
+    const user = await User.create(
+      {
+        email: faker.internet.email(),
+        password: faker.internet.password()
+      },
+      {include: [Order]}
+    )
+    users.push(user)
+  }
+  users.push(
+    await User.create({email: 'admin', password: 'admin', userType: 'ADMIN'})
+  )
 
-  const orders = await Promise.all([
-    Order.create(),
-    Order.create({isOrder: true})
-  ])
+  //create 2 orders for every user - one order will be a cart (isOrder = false)
+  let orders = []
+  for (let i = 0; i < users.length - 1; i++) {
+    const order1 = await Order.create({userId: users[i].id})
+    const order2 = await Order.create({userId: users[i].id, isOrder: true})
+    orders.push(order1, order2)
+  }
+
   // const cart = await Promise.all([
   //   orders[1].addProduct(products[2], {through: {price: products.price}}),
   //   orders[1].addProduct(products[5], {through: {price: products.price}}),
@@ -97,7 +120,6 @@ async function seed() {
   console.log(`seeded ${products.length} products`)
   console.log(`seeded ${orders.length} orders`)
   console.log(`seeded ${cart.length} products in cart`)
-
   console.log(`seeded successfully`)
 }
 
