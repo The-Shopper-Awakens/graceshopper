@@ -241,6 +241,7 @@ td {
 }
 
 .removeProduct {
+  margin-left: 0.5em;
   background-color: red;
   color: white;
 }

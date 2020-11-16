@@ -1,75 +1,55 @@
 import React from 'react'
-import {connect} from 'react-redux'
-const cart = [
-  {
-    category: 'tents',
-    id: 1,
-    imageUrl: '/images/defaultProduct.png',
-    inventory: 1,
-    name: 'Tent1',
-    price: 200
-  },
-  {
-    category: 'tents',
-    id: 2,
-    imageUrl: '/images/defaultProduct.png',
-    inventory: 3,
-    name: 'Tent2',
-    price: 300
-  },
-  {
-    category: 'headwear',
-    id: 3,
-    imageUrl: '/images/defaultProduct.png',
-    inventory: 50,
-    name: 'Hat',
-    price: 20
-  },
-  {
-    category: 'footwear',
-    id: 4,
-    imageUrl: '/images/defaultProduct.png',
-    inventory: 20,
-    name: 'Boots',
-    price: 150
-  },
-  {
-    category: 'stoves',
-    id: 5,
-    imageUrl: '/images/defaultProduct.png',
-    inventory: 5,
-    name: 'Camp Stove',
-    price: 100
+
+
+class CartPreview extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      cart: []
+    }
   }
-]
 
-export default props => {
-  return (
-    <div id="cartPreviewBox">
-      My Shopping Cart
-      <div>
-        <div>{cart.length} items in cart</div>
+  //How do we listen to local storage so that changes in local storage prompt a change in state?
+
+  componentDidMount() {
+    let cart = JSON.parse(window.localStorage.getItem('cart')) || []
+    this.setState({
+      cart: cart
+    })
+  }
+
+  render() {
+    return (
+      <div id="cartPreviewBox">
+        My Shopping Cart
         <div>
-          Total: $
-          {cart
-            .reduce((total, cur) => {
-              total += cur.price
-              return total
-            }, 0)
-            .toFixed(2)}
+          {this.state.cart.length ? (
+            <div>
+              {this.state.cart.reduce((total, cur) => {
+                return (total += cur.qty)
+              }, 0)}{' '}
+              items in cart
+            </div>
+          ) : (
+            <div>0 items in cart</div>
+          )}
+          <div>
+            Total: $
+            {this.state.cart.length
+              ? this.state.cart
+                  .reduce((total, cur) => {
+                    total += cur.price * cur.qty
+                    return total
+                  }, 0)
+                  .toFixed(2)
+              : 0}
+          </div>
         </div>
+        <button type="button" className="checkoutButton">
+          CHECKOUT
+        </button>
       </div>
-      <button type="button" className="checkoutButton">
-        CHECKOUT
-      </button>
-    </div>
-  )
+    )
+  }
 }
-
-// const mapCart = (state) => {
-//   return {
-//     cart: state.cart,
-//   }
-// }
-
-// export default connect(mapCart, null)(CartPreview)
+export default CartPreview
