@@ -36,11 +36,7 @@ class EditProduct extends React.Component {
     }
     this.props.editProduct(editedProduct)
     this.setState({
-      name: '',
-      price: 0,
-      category: '',
-      inventory: 0,
-      imageUrl: '/images/defaultProduct.png'
+      disableEditing: true
     })
   }
 
@@ -48,19 +44,24 @@ class EditProduct extends React.Component {
     this.props.deleteProduct(this.props.product)
   }
 
+  componentDidMount() {
+    this.setState({
+      name: this.props.product.name,
+      price: this.props.product.price,
+      category: this.props.product.category,
+      inventory: this.props.product.inventory,
+      imageUrl: this.props.product.imageUrl
+    })
+  }
+
   render() {
     return (
-      <div className="container">
+      <div className="addEditBox">
         <button
           type="button"
           className="addButton"
           onClick={() =>
             this.setState({
-              name: this.props.product.name,
-              price: this.props.product.price,
-              category: this.props.product.category,
-              inventory: this.props.product.inventory,
-              imageUrl: this.props.product.imageUrl,
               disableEditing: false
             })
           }
@@ -70,7 +71,7 @@ class EditProduct extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <div className="form">
             <div>
-              <div>
+              <div className="formLine">
                 <label htmlFor="name">Product Name: </label>
                 <input
                   type="text"
@@ -143,9 +144,9 @@ class EditProduct extends React.Component {
               </button>
               {this.state.disableEditing ? (
                 <div />
-              ) : !this.state.name.length ||
-              !this.state.price.length ||
-              !this.state.inventory.length ? (
+              ) : !this.state.name ||
+              !this.state.price ||
+              !this.state.inventory ? (
                 <span id="requiredMessage">
                   * Name, Price and Inventory are required
                 </span>

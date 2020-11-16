@@ -96,7 +96,7 @@ main {
   color: #c0c0c0;
 }
 
-#cartPreview {
+/* #cartPreview {
   display: none;
   position: absolute;
   right: 2rem;
@@ -104,11 +104,11 @@ main {
   height: 10em;
   background-color: rgb(255, 213, 193);
   border: solid black 2px;
-}
+} */
 
-#cartLink:hover + #cartPreview {
+/* #cartLink:hover + #cartPreview {
   display: block;
-}
+} */
 
 #rightSide {
   display: flex;
@@ -142,10 +142,15 @@ main {
 }
 
 .container {
-  width: 80%;
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.allProducts {
+  display: flex;
+  justify-content: space-around;
 }
 
 .cartBox {
@@ -188,13 +193,13 @@ td {
   font-weight: bold;
 }
 
-#cartPreviewBox {
+/* #cartPreviewBox {
   display: flex;
   justify-content: center;
   flex-direction: column;
   text-align: center;
   line-height: 2em;
-}
+} */
 
 .productList {
   display: flex;
@@ -207,11 +212,15 @@ td {
 }
 .singleProduct {
   text-align: center;
+  display: flex;
+}
+
+.media {
+  margin: 2em;
 }
 
 .media-object {
   width: 300px;
-  border: blue 1px;
 }
 
 .media-heading {
@@ -244,4 +253,58 @@ td {
   margin-left: 0.5em;
   background-color: red;
   color: white;
+}
+
+.form {
+  display: flex;
+}
+
+.addEditBox {
+  margin: 1em;
+  background-color: rgb(255, 246, 223);
+  display: flex;
+  width: 100%;
+}
+
+.addButton {
+  margin: 1em;
+}
+
+.formLine {
+  margin: 1em;
+}
+
+#newProductSubmitBox {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.submitButton {
+  padding: 1em;
+}
+
+.APcontainer {
+  height: 100%;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.singleProductImg {
+  height: 100%;
+  width: 100%;
+}
+
+.SPLeft {
+  flex: 3;
+}
+
+.SPRight {
+  flex: 1;
+}
+
+.addToCartButton {
+  padding: 1em;
 }

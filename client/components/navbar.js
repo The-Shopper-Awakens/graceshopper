@@ -39,9 +39,9 @@ const Navbar = ({handleClick, isLoggedIn}) => (
                 <Link to="/cart" className="navLink" id="cartLink">
                   Cart
                 </Link>
-                <div id="cartPreview">
+                {/* <div id="cartPreview">
                   <CartPreview />
-                </div>
+                </div> */}
               </div>
             ) : (
               <div>
@@ -55,9 +55,9 @@ const Navbar = ({handleClick, isLoggedIn}) => (
                 <Link to="/guestcart" className="navLink" id="cartLink">
                   Cart
                 </Link>
-                <div id="cartPreview">
+                {/* <div id="cartPreview">
                   <CartPreview />
-                </div>
+                </div> */}
               </div>
             )}
           </div>
@@ -66,13 +66,27 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             <Link to="/products" className="gearLink">
               All Products
             </Link>
-            <div className="gearLink">Tents</div>
-            <div className="gearLink">Footwear</div>
-            <div className="gearLink">Backpacks</div>
-            <div className="gearLink">Cooking</div>
-            <div className="gearLink">Clothing</div>
-            <div className="gearLink">Jackets</div>
-            <div className="gearLink">Headwear</div>
+            <Link className="gearLink" to="/categoryview/Footwear">
+              Footwear
+            </Link>
+            <Link className="gearLink" to="/categoryview/Headwear">
+              Headwear
+            </Link>
+            <Link className="gearLink" to="/categoryview/Jackets">
+              Jackets
+            </Link>
+            <Link className="gearLink" to="/categoryview/Gloves">
+              Gloves
+            </Link>
+            <Link className="gearLink" to="/categoryview/Clothing">
+              Clothing
+            </Link>
+            <Link className="gearLink" to="/categoryview/Gear">
+              Gear
+            </Link>
+            <Link className="gearLink" to="/categoryview/Misc">
+              Misc.
+            </Link>
           </div>
         </div>
       </div>

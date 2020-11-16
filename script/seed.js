@@ -10,7 +10,7 @@ async function seed() {
     Product.create({
       name: 'Blue Winter Hat',
       price: 20.5,
-      category: 'Hats',
+      category: 'Headwear',
       imageUrl: '/images/bluewinterhat.jpg',
       inventory: 20
     }),
@@ -24,14 +24,14 @@ async function seed() {
     Product.create({
       name: "Men's Winter Boot",
       price: 30.76,
-      category: 'Boots',
+      category: 'Footwear',
       imageUrl: '/images/mensboot.jpg',
       inventory: 5
     }),
     Product.create({
       name: "Men's Winter Coat",
       price: 70.1,
-      category: 'Coats',
+      category: 'Jackets',
       imageUrl: '/images/menswintercoat.jpg',
       inventory: 30
     }),
@@ -45,30 +45,42 @@ async function seed() {
     Product.create({
       name: 'Red Winter Hat',
       price: 20.79,
-      category: 'Hats',
+      category: 'Headwear',
       imageUrl: '/images/redwinterhat.jpg',
       inventory: 20
     }),
     Product.create({
       name: "Women's Winter Boot",
       price: 30.55,
-      category: 'Boots',
+      category: 'Footwear',
       imageUrl: '/images/womensboot.jpg',
       inventory: 5
     }),
     Product.create({
       name: "Women's Winter Coat",
       price: 70.16,
-      category: 'Coats',
+      category: 'Jackets',
       imageUrl: '/images/womenswintercoat.jpg',
       inventory: 30
     })
   ])
+
+  const categories = [
+    'Footwear',
+    'Headwear',
+    'Jackets',
+    'Gloves',
+    'Clothing',
+    'Gear',
+    'Misc'
+  ]
+
   for (let i = 0; i < 101; i++) {
+    let randomIdx = Math.floor(Math.random() * 7)
     const product = await Product.create({
       name: faker.commerce.productName(),
       price: faker.commerce.price(),
-      category: faker.commerce.department(),
+      category: categories[randomIdx],
       imageUrl: faker.random.image(),
       inventory: faker.random.number()
     })
