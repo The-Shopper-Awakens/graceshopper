@@ -43,6 +43,7 @@ const Product = db.define('Product', {
 })
 
 Product.beforeCreate(product => {
+
   product.price = parseInt(product.price * 100, 10)
 })
 

@@ -1,6 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProduct} from '../store/product'
+import EditProduct from './EditProduct'
+
 import {addItem} from '../store/cart' //this thunk should add the item to the cart
 // eslint-disable-next-line react/display-name
 class Product extends React.Component {
@@ -84,6 +86,13 @@ class Product extends React.Component {
             Add To Cart
           </button>
         )}
+        {this.props.user.userType === 'ADMIN' ? (
+          <div>
+            <EditProduct />
+          </div>
+        ) : (
+          <div />
+        )}
       </div>
       </div>
     )
@@ -93,7 +102,8 @@ class Product extends React.Component {
 const mapProduct = state => {
   return {
     product: state.product,
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    user: state.user
   }
 }
 

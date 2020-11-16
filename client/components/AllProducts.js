@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Product from './ProductList'
-
+import AddProduct from './AddProduct'
 import {fetchProducts} from '../store/allProducts'
 
 export class AllProducts extends React.Component {
@@ -22,6 +22,13 @@ export class AllProducts extends React.Component {
             </div>
           ))}
         </ul>
+        {this.props.user.userType === 'ADMIN' ? (
+          <div>
+            <AddProduct />
+          </div>
+        ) : (
+          <div />
+        )}
       </div>
     )
   }
@@ -29,6 +36,7 @@ export class AllProducts extends React.Component {
 
 const mapState = state => {
   return {
+    user: state.user,
     products: state.products
   }
 }
