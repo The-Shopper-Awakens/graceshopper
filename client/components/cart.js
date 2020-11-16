@@ -24,6 +24,10 @@ class Cart extends React.Component {
   handleRemoveButton(productId) {
     this.props.removeProduct(productId)
   }
+  checkout() {
+    //change isOrder to true
+    //history.push(/checkout)
+  }
   render() {
     const {cart} = this.props
 
@@ -67,7 +71,11 @@ class Cart extends React.Component {
             </div>
           </div>
           <div id="cartRight">
-            <button type="button" className="checkoutButton">
+            <button
+              type="button"
+              className="checkoutButton"
+              onClick={this.checkout}
+            >
               CHECKOUT
             </button>
           </div>
