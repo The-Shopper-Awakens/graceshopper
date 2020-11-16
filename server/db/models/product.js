@@ -43,11 +43,16 @@ const Product = db.define('Product', {
 })
 
 Product.beforeCreate(product => {
-
   product.price = parseInt(product.price * 100, 10)
 })
 
+Product.beforeUpdate(product => {
+  product.price = parseInt(product.price * 100, 10)
+  product.inventory = parseInt(product.inventory)
+})
+
 Product.afterFind(products => {
+  if (products === null) return 0
   if (Array.isArray(products)) {
     products.map(product => {
       product.price = (product.price / 100).toFixed(2)

@@ -31,7 +31,6 @@ export const addItemAction = item => {
 
 export const addItem = productId => {
   return async dispatch => {
-    console.log('invoking dispatch...')
     try {
       console.log(productId)
       const {data} = await Axios.post(`/api/cart/addProduct/${productId}`)

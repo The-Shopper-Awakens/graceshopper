@@ -35,7 +35,7 @@ class AddProduct extends React.Component {
     this.props.addProduct(newProduct)
     this.setState({
       name: '',
-      price: '',
+      price: 0,
       category: '',
       inventory: 0,
       imageUrl: '/images/defaultProduct.png'
@@ -87,6 +87,7 @@ class AddProduct extends React.Component {
                 <label htmlFor="inventory"> Inventory: </label>
                 <input
                   type="number"
+                  min="0"
                   name="inventory"
                   value={this.state.inventory}
                   onChange={this.handleChange}

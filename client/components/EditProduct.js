@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {editProduct} from '../store/allProducts'
+import {editProduct, deleteProduct} from '../store/product'
 
 class EditProduct extends React.Component {
   constructor() {
@@ -15,20 +15,19 @@ class EditProduct extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   handleChange(event) {
-    console.log(this.props.product)
-    console.log(this.state)
     this.setState({
       [event.target.name]: event.target.value
     })
-    console.log(this.state)
   }
 
   handleSubmit(event) {
     event.preventDefault()
     const editedProduct = {
+      id: this.props.product.id,
       name: this.state.name,
       price: this.state.price,
       inventory: this.state.inventory,
@@ -38,11 +37,15 @@ class EditProduct extends React.Component {
     this.props.editProduct(editedProduct)
     this.setState({
       name: '',
-      price: '',
+      price: 0,
       category: '',
       inventory: 0,
       imageUrl: '/images/defaultProduct.png'
     })
+  }
+
+  handleDelete() {
+    this.props.deleteProduct(this.props.product)
   }
 
   render() {
@@ -100,6 +103,7 @@ class EditProduct extends React.Component {
                 <input
                   type="number"
                   name="inventory"
+                  min="0"
                   value={this.state.inventory}
                   onChange={this.handleChange}
                   className={
@@ -133,11 +137,7 @@ class EditProduct extends React.Component {
               <button
                 className="submitButton"
                 type="submit"
-                disabled={
-                  !this.state.name.length ||
-                  !this.state.price.length ||
-                  !this.state.inventory.length
-                }
+                disabled={!this.state.name.length}
               >
                 Submit
               </button>
@@ -152,6 +152,16 @@ class EditProduct extends React.Component {
               ) : (
                 <div />
               )}
+              <div>
+                <button
+                  className="deleteButton"
+                  type="button"
+                  disabled={this.state.disableEditing}
+                  onClick={this.handleDelete}
+                >
+                  REMOVE ITEM
+                </button>
+              </div>
             </div>
           </div>
         </form>
@@ -169,7 +179,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    editProduct: product => dispatch(editProduct(product))
+    editProduct: product => dispatch(editProduct(product)),
+    deleteProduct: product => dispatch(deleteProduct(product))
   }
 }
 
@@ -177,5 +188,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(EditProduct)
 
 //something is fishy with the submit button being disabled
 //becomes enabled as soon as price and category are edited
-// tells me something is wrong with the wayt they are in state
+// tells me something is wrong with the way they are in state
 //api route or thunk is not working either
