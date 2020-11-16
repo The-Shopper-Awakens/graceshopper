@@ -1,13 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {addProduct} from '../store/allProducts'
+import {editProduct} from '../store/allProducts'
 
-class AddProduct extends React.Component {
+class EditProduct extends React.Component {
   constructor() {
     super()
     this.state = {
       name: '',
-      price: '',
+      price: 0,
       category: '',
       inventory: 0,
       imageUrl: '/images/defaultProduct.png',
@@ -18,21 +18,24 @@ class AddProduct extends React.Component {
   }
 
   handleChange(event) {
+    console.log(this.props.product)
+    console.log(this.state)
     this.setState({
       [event.target.name]: event.target.value
     })
+    console.log(this.state)
   }
 
   handleSubmit(event) {
     event.preventDefault()
-    const newProduct = {
+    const editedProduct = {
       name: this.state.name,
       price: this.state.price,
       inventory: this.state.inventory,
       category: this.state.category,
       imageUrl: this.state.imageUrl
     }
-    this.props.addProduct(newProduct)
+    this.props.editProduct(editedProduct)
     this.setState({
       name: '',
       price: '',
@@ -48,9 +51,18 @@ class AddProduct extends React.Component {
         <button
           type="button"
           className="addButton"
-          onClick={() => this.setState({disableEditing: false})}
+          onClick={() =>
+            this.setState({
+              name: this.props.product.name,
+              price: this.props.product.price,
+              category: this.props.product.category,
+              inventory: this.props.product.inventory,
+              imageUrl: this.props.product.imageUrl,
+              disableEditing: false
+            })
+          }
         >
-          Add a New Product
+          Edit Product
         </button>
         <form onSubmit={this.handleSubmit}>
           <div className="form">
@@ -134,7 +146,9 @@ class AddProduct extends React.Component {
               ) : !this.state.name.length ||
               !this.state.price.length ||
               !this.state.inventory.length ? (
-                <span id="requiredMessage">* Name and Price are required</span>
+                <span id="requiredMessage">
+                  * Name, Price and Inventory are required
+                </span>
               ) : (
                 <div />
               )}
@@ -148,14 +162,20 @@ class AddProduct extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    product: state.product,
     user: state.user
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    addProduct: product => dispatch(addProduct(product))
+    editProduct: product => dispatch(editProduct(product))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddProduct)
+export default connect(mapStateToProps, mapDispatchToProps)(EditProduct)
+
+//something is fishy with the submit button being disabled
+//becomes enabled as soon as price and category are edited
+// tells me something is wrong with the wayt they are in state
+//api route or thunk is not working either

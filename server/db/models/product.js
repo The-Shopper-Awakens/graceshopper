@@ -37,7 +37,7 @@ const Product = db.define('Product', {
 })
 
 Product.beforeCreate(product => {
-  product.price = parseInt(product.price * 10) //multiplies price by an additional factor of 10
+  product.price = parseInt(product.price * 100) //multiplies price by an additional factor of 10
 })
 //product after hook
 module.exports = Product

@@ -1,5 +1,5 @@
 import React from 'react'
-import GuestCartItem from './guestCartItem'
+import GuestCartItem from './GuestCartItem'
 
 class GuestCart extends React.Component {
   constructor() {
