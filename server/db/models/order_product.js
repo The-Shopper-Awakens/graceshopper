@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-module.exports = db.define('Order_Product', {
+const Order_Product = db.define('Order_Product', {
   quantity: {
     type: Sequelize.INTEGER,
     allowNull: false,
@@ -12,4 +12,5 @@ module.exports = db.define('Order_Product', {
   }
 })
 
+module.exports = Order_Product
 //create hook for price here

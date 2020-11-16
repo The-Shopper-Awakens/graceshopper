@@ -80,13 +80,14 @@ async function seed() {
   //   orders[1].addProduct(products[7], {through: {price: products.price}}),
   //   orders[2].addProduct(products[2], {through: {price: products.price}}),
   // ])
+
   const cart = await Promise.all([
     Order_Product.create({OrderId: 1, ProductId: 2, price: products[1].price}),
     Order_Product.create({
       OrderId: 1,
       ProductId: 5,
       quantity: 2,
-      price: products[4].price
+      price: products[4].price * 2
     }),
     Order_Product.create({OrderId: 1, ProductId: 7, price: products[6].price}),
     Order_Product.create({OrderId: 2, ProductId: 2, price: products[1].price})

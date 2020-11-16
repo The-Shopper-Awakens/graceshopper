@@ -1,5 +1,5 @@
 import React from 'react'
-
+import {connect} from 'react-redux'
 const cart = [
   {
     category: 'tents',
@@ -43,25 +43,33 @@ const cart = [
   }
 ]
 
-const CartItem = props => (
-  <div id="cartPreviewBox">
-    My Shopping Cart
-    <div>
-      <div>{cart.length} items in cart</div>
+export default props => {
+  return (
+    <div id="cartPreviewBox">
+      My Shopping Cart
       <div>
-        Total: $
-        {cart
-          .reduce((total, cur) => {
-            total += cur.price
-            return total
-          }, 0)
-          .toFixed(2)}
+        <div>{cart.length} items in cart</div>
+        <div>
+          Total: $
+          {cart
+            .reduce((total, cur) => {
+              total += cur.price
+              return total
+            }, 0)
+            .toFixed(2)}
+        </div>
       </div>
+      <button type="button" className="checkoutButton">
+        CHECKOUT
+      </button>
     </div>
-    <button type="button" className="checkoutButton">
-      CHECKOUT
-    </button>
-  </div>
-)
+  )
+}
 
-export default CartItem
+// const mapCart = (state) => {
+//   return {
+//     cart: state.cart,
+//   }
+// }
+
+// export default connect(mapCart, null)(CartPreview)

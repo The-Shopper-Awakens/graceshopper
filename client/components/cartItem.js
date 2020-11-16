@@ -1,24 +1,54 @@
 import React from 'react'
 
 class CartItem extends React.Component {
+  componentDidMount() {
+    console.log('item.js is mounting...')
+  }
   render() {
-    return (
+    const {product} = this.props
+    console.log('item.js is rendering...', product)
+    const price = (product.Order_Product.price / 100).toFixed(2)
+    return !product.Order_Product.quantity ? (
+      <div>Loading...</div>
+    ) : (
       <tr>
-        <td>{this.props.product.id}</td>
-        <td>{this.props.product.name}</td>
+        <td>{product.id}</td>
+        <td>{product.name}</td>
         <td className="qtyBox">
-          {1}
+          {product.Order_Product.quantity}
           <span className="cartButtons">
             <div className="upAndDown">
-              <button className="incrementQty" type="button" />
-              <button className="decrementQty" type="button" />
+              <button
+                className="incrementQty"
+                type="button"
+                onClick={() => {
+                  this.props.handleIncrementButton(product.id, true)
+                }}
+              >
+                +
+              </button>
+              <button
+                className="decrementQty"
+                type="button"
+                onClick={() => {
+                  this.props.handleDeincrementButton(product.id, false)
+                }}
+              >
+                -
+              </button>
             </div>
-            <button className="removeProduct" type="button">
+            <button
+              className="removeProduct"
+              type="button"
+              onClick={() => {
+                this.props.handleRemoveButton(product.id)
+              }}
+            >
               x
             </button>
           </span>
         </td>
-        <td>${this.props.product.price.toFixed(2)}</td>
+        <td>${price}</td>
       </tr>
     )
   }

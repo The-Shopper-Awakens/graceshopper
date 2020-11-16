@@ -1,9 +1,11 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-module.exports = db.define('Order', {
+const Order = db.define('Order', {
   isOrder: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   }
 })
+
+module.exports = Order
