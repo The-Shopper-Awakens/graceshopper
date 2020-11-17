@@ -308,3 +308,11 @@ td {
 .addToCartButton {
   padding: 1em;
 }
+
+.cartImage {
+  width: 1em;
+}
+
+.toastify__content--info {
+  border-color: #317679;
+}

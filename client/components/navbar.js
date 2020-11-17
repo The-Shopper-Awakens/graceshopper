@@ -4,6 +4,11 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import CartPreview from './cartPreview'
+import {getTotalQuantity} from '../store/cart'
+
+import NotificationBadge from 'react-notification-badge'
+import {from} from 'nodemailer/lib/smtp-connection/data-stream'
+
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
     <nav>
@@ -38,6 +43,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
                 </a>
                 <Link to="/cart" className="navLink" id="cartLink">
                   Cart
+                  <img className="cartImage" src="/images/Shopping-Cart-icon" />
+                  <NotificationBadge count={getTotalQuantity} />
                 </Link>
                 {/* <div id="cartPreview">
                   <CartPreview />
@@ -53,6 +60,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
                   Sign Up
                 </Link>
                 <Link to="/guestcart" className="navLink" id="cartLink">
+                  <img className="cartImage" src="/images/Shopping-Cart-icon" />
                   Cart
                 </Link>
                 {/* <div id="cartPreview">

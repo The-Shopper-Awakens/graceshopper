@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {Order, Product, Order_Product} = require('../db/models')
+const nodemailer = require('nodemailer')
 module.exports = router
 
 router.get('/', async (req, res) => {
@@ -107,6 +108,46 @@ router.get('/checkout', async (req, res) => {
       where: {isOrder: false, userId: req.user.id},
       include: Product
     })
+
+    console.log(orderToBeCheckedOut)
+
+    const transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+        user: 'graceshoppernode@gmail.com',
+        pass: 'jessetim1'
+      }
+    })
+    let mailOptions
+    req.user.email
+      ? (mailOptions = {
+          from: `Grace Shopper <graceshoppernode@gmail.com>`,
+          to: `${req.user.email}`,
+          subject: `Your order`,
+          text: `You ordered: ${JSON.stringify(
+            orderToBeCheckedOut.Products.map(
+              item => item.Order_Product.quantity + ' x ' + item.name + ' '
+            )
+          )}`
+        })
+      : (mailOptions = {
+          from: `Grace Shopper <graceshoppernode@gmail.com>`,
+          to: `${window.localStorage.userInfo.email}`,
+          subject: `Your order`,
+          text: `You ordered: ${JSON.stringify(
+            orderToBeCheckedOut.Products.map(
+              item => item.Order_Product.quantity + ' x ' + item.name + ' '
+            )
+          )}`
+        })
+    transporter.sendMail(mailOptions, function(err, rest) {
+      if (err) {
+        console.error('there was an error: ', err)
+      } else {
+        console.log('here is the res: ', rest)
+      }
+    })
+
     if (orderToBeCheckedOut.Products.length > 0) {
       orderToBeCheckedOut.isOrder = true
       await orderToBeCheckedOut.save()
