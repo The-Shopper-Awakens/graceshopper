@@ -7,12 +7,14 @@ router.get('/', async (req, res) => {
     // const order = await Order.findOne({where: {isOrder: false}})
     // const {id} = order
     // const cart = await Order_Product.findAll({where: {OrderId: id}})
-
+    console.log(req.user.id)
     const cart = await Order.findOne({
-      where: {isOrder: false},
+      where: {isOrder: false, userId: req.user.id},
       include: Product
     })
-    res.json(cart.Products)
+    if (cart) {
+      res.json(cart.Products)
+    }
   } catch (error) {
     res.sendStatus(error)
   }
@@ -21,7 +23,9 @@ router.get('/', async (req, res) => {
 router.post('/addProduct/:productId', async (req, res) => {
   try {
     const productId = req.params.productId
-    const [order] = await Order.findOrCreate({where: {isOrder: false}})
+    const [order] = await Order.findOrCreate({
+      where: {isOrder: false, userId: req.user.id}
+    })
     const product = await Product.findByPk(productId)
     const price = product.price * 100
     const isProductInCart = await Order_Product.findOne({
@@ -48,8 +52,12 @@ router.post('/addProduct/:productId', async (req, res) => {
 router.delete('/removeProduct/:productId', async (req, res) => {
   try {
     const productId = req.params.productId
+    const order = await Order.findOne({
+      where: {isOrder: false, userId: req.user.id}
+    })
+
     const isproductInCart = await Order_Product.findOne({
-      where: {ProductId: productId}
+      where: {ProductId: productId, OrderId: order.id}
     })
     await isproductInCart.destroy()
 
@@ -65,7 +73,9 @@ router.put('/updateQuantity/:productId', async (req, res) => {
     const increment = req.body.increment
     const product = await Product.findByPk(productId)
     const price = product.price * 100
-    const order = await Order.findOne({where: {isOrder: false}})
+    const order = await Order.findOne({
+      where: {isOrder: false, userId: req.user.id}
+    })
     const productInCart = await Order_Product.findOne({
       where: {ProductId: productId, OrderId: order.id}
     })
@@ -89,15 +99,21 @@ router.put('/updateQuantity/:productId', async (req, res) => {
   }
 })
 
-router.put('/checkout', async (req, res, next) => {
+//create an error handler incase a cart doesn't exist
+router.get('/checkout', async (req, res) => {
+  //receiving an error when using put instead of get
   try {
-    const cart = await Order.findOne({
-      where: {isOrder: false},
+    const orderToBeCheckedOut = await Order.findOne({
+      where: {isOrder: false, userId: req.user.id},
       include: Product
     })
-    cart.isOrder = true
-    cart.save()
+    if (orderToBeCheckedOut.Products.length > 0) {
+      orderToBeCheckedOut.isOrder = true
+      await orderToBeCheckedOut.save()
+      await Order.create({userId: req.user.id})
+      res.json(orderToBeCheckedOut)
+    } else res.sendStatus(400)
   } catch (error) {
-    next(error)
+    res.sendStatus(error)
   }
 })

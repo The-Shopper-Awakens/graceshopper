@@ -7,6 +7,7 @@ const GET_ITEMS = 'GET_ITEMS'
 const ADD_ITEM = 'ADD_ITEM'
 const REMOVE_ITEM = 'REMOVE_ITEM'
 const UPDATE_QUANTITY = 'UPDATE_QUANTITY'
+const CHECKOUT = 'CHECKOUT'
 export const setItems = items => {
   return {
     type: SET_ITEMS,
@@ -27,6 +28,10 @@ export const addItemAction = item => {
     type: ADD_ITEM,
     item
   }
+}
+
+const checkout = cart => {
+  return {type: CHECKOUT, cart}
 }
 
 export const addItem = productId => {
@@ -88,6 +93,17 @@ export const fetchItems = () => {
   }
 }
 
+export const fetchCheckoutAction = () => {
+  return async dispatch => {
+    try {
+      const {data} = await Axios.put('/api/cart/checkout')
+      dispatch(checkout(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 export default (state = initialState, action) => {
   switch (action.type) {
     case SET_ITEMS:
@@ -97,6 +113,8 @@ export default (state = initialState, action) => {
     case REMOVE_ITEM:
       return state.filter(item => item.id !== action.itemId)
     case UPDATE_QUANTITY:
+      return action.cart
+    case CHECKOUT:
       return action.cart
     default:
       return state

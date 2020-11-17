@@ -74,7 +74,7 @@ class GuestCart extends React.Component {
             </div>
           </div>
           <div id="cartRight">
-            <button type="button" className="checkoutButton">
+            <button type="submit" className="checkoutButton">
               CHECKOUT
             </button>
             <button

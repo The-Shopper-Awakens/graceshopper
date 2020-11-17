@@ -1,16 +1,22 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import CartItem from './CartItem'
-import {fetchItems, fetchUpdateQuantity, fetchRemoveItem} from '../store/cart'
-
+import {
+  fetchItems,
+  fetchUpdateQuantity,
+  fetchRemoveItem,
+  fetchCheckoutAction
+} from '../store/cart'
+import axios from 'axios'
 class Cart extends React.Component {
   constructor() {
     super()
     this.handleIncrementButton = this.handleIncrementButton.bind(this)
     this.handleDeincrementButton = this.handleDeincrementButton.bind(this)
     this.handleRemoveButton = this.handleRemoveButton.bind(this)
+    this.handleCheckout = this.handleCheckout.bind(this)
   }
-  componentWillMount() {
+  componentDidMount() {
     this.props.getCart()
   }
 
@@ -24,9 +30,11 @@ class Cart extends React.Component {
   handleRemoveButton(productId) {
     this.props.removeProduct(productId)
   }
-  checkout() {
-    //change isOrder to true
-    //history.push(/checkout)
+  async handleCheckout() {
+    // this.props.checkout()
+    console.log('handling checkout...')
+    const {data} = await axios.get('/api/cart/checkout')
+    this.props.history.push('/checkout', {data: data})
   }
   render() {
     const {cart} = this.props
@@ -72,9 +80,9 @@ class Cart extends React.Component {
           </div>
           <div id="cartRight">
             <button
-              type="button"
+              type="submit"
               className="checkoutButton"
-              onClick={this.checkout}
+              onClick={this.handleCheckout}
             >
               CHECKOUT
             </button>
@@ -96,7 +104,8 @@ const mapDispatch = dispatch => {
     getCart: () => dispatch(fetchItems()),
     updateQuantity: (productId, increment) =>
       dispatch(fetchUpdateQuantity(productId, increment)),
-    removeProduct: productId => dispatch(fetchRemoveItem(productId))
+    removeProduct: productId => dispatch(fetchRemoveItem(productId)),
+    checkout: () => dispatch(fetchCheckoutAction())
   }
 }
 
