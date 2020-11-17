@@ -311,6 +311,15 @@ td {
 
 .hidden {
   visibility: hidden;
+
+.cartImage {
+  width: 1em;
+}
+
+.toastify__content--info {
+  border-color: #317679;
+}
+
 .checkoutBox {
   display: flex;
   width: 80%;

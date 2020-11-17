@@ -2,6 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProduct} from '../store/product'
 import EditProduct from './EditProduct'
+import {ToastContainer, toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import {addItem} from '../store/cart' //this thunk should add the item to the cart
 // eslint-disable-next-line react/display-name
@@ -19,6 +21,7 @@ class Product extends React.Component {
 
   handleAddToLocalStorage() {
     //if cart exists in local storage, add to it, if not, create the cart
+    toast.success('Added to cart!')
     let product = this.props.product
     let cart = JSON.parse(window.localStorage.getItem('cart'))
     if (!cart)
@@ -61,6 +64,7 @@ class Product extends React.Component {
   }
   handleAddToCartButton(productId) {
     'invoking handleaddtocartButton'
+    toast.info('Added to cart!')
     this.props.addItemToCart(productId)
   }
 
@@ -81,6 +85,7 @@ class Product extends React.Component {
               <h2>{product.name}</h2>
               <h2>Price: ${product.price}</h2>
               <div>
+                <ToastContainer />
                 {this.props.isLoggedIn ? (
                   <button
                     className="addToCartButton"
