@@ -1,11 +1,13 @@
 import React from 'react'
 import GuestCartItem from './GuestCartItem'
+import GuestCheckoutForm from './GuestCheckoutForm'
 
 class GuestCart extends React.Component {
   constructor() {
     super()
     this.state = {
-      cart: []
+      cart: [],
+      checkout: false
     }
     this.renderCart = this.renderCart.bind(this)
     this.clearCart = this.clearCart.bind(this)
@@ -63,7 +65,7 @@ class GuestCart extends React.Component {
                       $
                       {this.state.cart
                         .reduce((total, cur) => {
-                          total += cur.price * cur.qty
+                          total += cur.price * cur.quantity
                           return total
                         }, 0)
                         .toFixed(2)}
@@ -74,7 +76,12 @@ class GuestCart extends React.Component {
             </div>
           </div>
           <div id="cartRight">
-            <button type="submit" className="checkoutButton">
+            <button
+              type="button"
+              className="checkoutButton"
+              onClick={() => this.setState({checkout: true})}
+              disabled={!this.state.cart.length}
+            >
               CHECKOUT
             </button>
             <button
@@ -86,6 +93,11 @@ class GuestCart extends React.Component {
             </button>
           </div>
         </div>
+        {this.state.checkout && this.state.cart.length ? (
+          <GuestCheckoutForm />
+        ) : (
+          <div />
+        )}
       </div>
     )
   }
