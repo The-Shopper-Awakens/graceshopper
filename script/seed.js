@@ -64,6 +64,8 @@ async function seed() {
       inventory: 30
     })
   ])
+
+  //generate fake product data user faker
   for (let i = 0; i < 101; i++) {
     const product = await Product.create({
       name: faker.commerce.productName(),
@@ -75,7 +77,7 @@ async function seed() {
   }
 
   //generate fake user data using faker
-  let users = [] //generate fake user data
+  let users = []
   for (let i = 0; i < 50; i++) {
     const user = await User.create(
       {
@@ -87,12 +89,17 @@ async function seed() {
     users.push(user)
   }
   users.push(
-    await User.create({email: 'admin', password: 'admin', userType: 'ADMIN'})
+    await User.create({
+      email: 'admin@gmail.com',
+      password: 'admin',
+      userType: 'ADMIN'
+    }),
+    await User.create({email: 'cody@gmail.com', password: '12345'})
   )
 
   //create 2 orders for every user - one order will be a cart (isOrder = false)
   let orders = []
-  for (let i = 0; i < users.length - 1; i++) {
+  for (let i = 0; i < users.length; i++) {
     const order1 = await Order.create({userId: users[i].id})
     const order2 = await Order.create({userId: users[i].id, isOrder: true})
     orders.push(order1, order2)
