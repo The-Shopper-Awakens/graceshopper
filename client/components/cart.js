@@ -1,5 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {loadStripe} from '@stripe/stripe-js'
+const promise = loadStripe(
+  'pk_test_51HoKPgIPlXyRn90sj4konby739jd6RRYkOAJl6PYyqP8e2qNHwub3jLkn7X1lvL47iZqUv1niX39R8d6tG4Av9XA00MS9wXW1O'
+)
 
 import {
   fetchItems,
@@ -33,15 +37,25 @@ class Cart extends React.Component {
   handleRemoveButton(productId) {
     this.props.removeProduct(productId)
   }
-  async handleCheckout() {
+  async handleCheckout(totalAmount) {
+    // totalAmount = (totalAmount * 100).toFixed(0)
+    // const {data} = await axios.post('/api/payments/createPayment', {
+    //   amount: totalAmount,
+    //   currency: 'usd',
+    // })
+    // this.props.history.push('/paymentForm', {clientSecret: data.clientSecret})
     // this.props.checkout()
-    console.log('handling checkout...')
-    const {data} = await axios.get('/api/cart/checkout')
+    const {data} = await axios.get('/api/cart/checkout')  
     this.props.history.push('/checkout', {data: data})
   }
+
   render() {
     const {cart} = this.props
-
+    const totalAmount =
+      cart.reduce((total, cur) => {
+        total += cur.Order_Product.price
+        return total
+      }, 0) / (100).toFixed(2)
     return (
       <div className="container">
         <div className="cartBox">
@@ -69,15 +83,8 @@ class Cart extends React.Component {
                     <td />
                     <td />
                     <td id="cartTotal">Total:</td>
-                    <td id="totalAmmount">
-                      $
-                      {(
-                        cart.reduce((total, cur) => {
-                          total += cur.Order_Product.price
-                          return total
-                        }, 0) / 100
-                      ).toFixed(2)}
-                    </td>
+                    <td id="totalAmmount">${totalAmount}</td>
+
                   </tr>
                 </tbody>
               </table>
@@ -87,9 +94,9 @@ class Cart extends React.Component {
             <button
               type="submit"
               className="checkoutButton"
-              onClick={this.handleCheckout}
+              onClick={() => this.handleCheckout(totalAmount)}
             >
-              CHECKOUT
+              Go to Checkout Page
             </button>
           </div>
         </div>

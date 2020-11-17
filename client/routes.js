@@ -9,6 +9,8 @@ import {
   Cart,
   GuestCart,
   Checkout,
+  Payment,
+  PaymentForm
   GuestCheckout
 } from './components'
 import {me} from './store'
@@ -39,6 +41,8 @@ class Routes extends Component {
           <Route path="/guestcart" component={GuestCart} />
           <Route path="/categoryview/:name" component={CategoryView} />
           <Route path="/checkout" component={Checkout} />
+          <Route path="/payment" component={Payment} />
+          <Route path="/PaymentForm" component={PaymentForm} />
           <Route path="/guestcheckout" component={GuestCheckout} />
           {isLoggedIn && (
             <Switch>
