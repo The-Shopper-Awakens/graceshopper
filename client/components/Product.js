@@ -28,24 +28,29 @@ class Product extends React.Component {
       window.localStorage.setItem(
         'cart',
         JSON.stringify([
-          {id: product.id, name: product.name, qty: 1, price: product.price}
+          {
+            productId: product.id,
+            name: product.name,
+            quantity: 1,
+            price: product.price
+          }
         ])
       )
     else if (
       !cart.reduce((bool, item) => {
-        return item.id === product.id || bool
+        return item.productId === product.id || bool
       }, false)
     ) {
       cart.push({
-        id: product.id,
+        productId: product.id,
         name: product.name,
-        qty: 1,
+        quantity: 1,
         price: product.price
       })
       window.localStorage.setItem('cart', JSON.stringify(cart))
     } else {
       cart.forEach(item => {
-        if (item.id === product.id) item.qty++
+        if (item.productId === product.id) item.quantity++
       })
       window.localStorage.setItem('cart', JSON.stringify(cart))
     }

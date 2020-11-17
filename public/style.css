@@ -316,3 +316,79 @@ td {
 .toastify__content--info {
   border-color: #317679;
 }
+
+.checkoutBox {
+  display: flex;
+  width: 80%;
+  padding: 1em;
+  border: solid black 0.25em;
+  margin-top: 1em;
+}
+
+.checkoutLeft {
+  flex: 1;
+  border: solid red 1px;
+  margin: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkoutRight {
+  flex: 1;
+  border: solid blue 1px;
+  margin: 1em;
+}
+
+.stripePlaceholder {
+  height: 20em;
+}
+
+.submitBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.submitOrderButton {
+  padding: 1.5em;
+  background-color: rgb(193, 255, 255);
+  margin: 1em;
+}
+
+.footer {
+  margin-top: 20em;
+  position: absolute;
+  top: 100;
+  height: 3em;
+  background-color: black;
+  width: 100%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.trademark {
+  margin: 1em;
+}
+
+.userContainer {
+  display: flex;
+  width: 80%;
+  padding: 1em;
+  border: solid black 0.25em;
+  margin-top: 1em;
+}
+
+.userInfo {
+  flex: 1;
+  border: solid red 1px;
+  margin: 1em;
+}
+
+.pastOrders {
+  flex: 2;
+  border: solid blue 1px;
+  margin: 1em;
+}

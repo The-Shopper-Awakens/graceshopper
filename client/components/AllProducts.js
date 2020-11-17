@@ -3,14 +3,47 @@ import {connect} from 'react-redux'
 import Product from './ProductList'
 import AddProduct from './AddProduct'
 import {fetchProducts} from '../store/allProducts'
+import Pagination from './Pagination'
 
 export class AllProducts extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      currentPage: 1,
+      productsPerPage: 9
+    }
+    this.incrementPage = this.incrementPage.bind(this)
+    this.decrementPage = this.decrementPage.bind(this)
+  }
+
   componentDidMount() {
     this.props.getProducts()
   }
 
+  incrementPage() {
+    if (
+      this.props.products.length / this.state.currentPage >=
+      this.state.productsPerPage
+    ) {
+      let curPage = this.state.currentPage
+      this.setState({currentPage: curPage + 1})
+    }
+  }
+
+  decrementPage() {
+    if (this.state.currentPage !== 1) {
+      let curPage = this.state.currentPage
+      this.setState({currentPage: curPage - 1})
+    }
+  }
+
   render() {
-    const products = this.props.products || []
+    window.scrollTo(0, 0)
+    console.log(this.state)
+    let products = this.props.products || []
+    let indexOfLastPost = this.state.currentPage * this.state.productsPerPage
+    let indexOfFirstPost = indexOfLastPost - this.state.productsPerPage
+    products = products.slice(indexOfFirstPost, indexOfLastPost)
 
     return (
       <div className="APcontainer">
@@ -23,7 +56,12 @@ export class AllProducts extends React.Component {
               </div>
             ))}
           </ul>
-        </div>{' '}
+        </div>
+        <Pagination
+          incrementPage={this.incrementPage}
+          decrementPage={this.decrementPage}
+          currentPage={this.state.currentPage}
+        />{' '}
         {this.props.user.userType === 'ADMIN' ? (
           <div>
             <AddProduct />
