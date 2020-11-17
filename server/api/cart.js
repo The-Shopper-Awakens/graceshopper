@@ -20,6 +20,23 @@ router.get('/', async (req, res) => {
   }
 })
 
+router.post('/guestcheckout', async (req, res, next) => {
+  try {
+    const order = await Order.create({isOrder: true})
+    req.body.forEach(item => {
+      Order_Product.create({
+        quantity: item.quantity,
+        price: parseInt(item.price * 100),
+        OrderId: order.id,
+        ProductId: item.productId
+      })
+    })
+    res.sendStatus(201)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.post('/addProduct/:productId', async (req, res) => {
   try {
     const productId = req.params.productId

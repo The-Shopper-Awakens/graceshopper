@@ -11,7 +11,6 @@ import axios from 'axios'
 
 import CartItem from './cartItem'
 
-
 class Cart extends React.Component {
   constructor() {
     super()
@@ -72,10 +71,12 @@ class Cart extends React.Component {
                     <td id="cartTotal">Total:</td>
                     <td id="totalAmmount">
                       $
-                      {cart.reduce((total, cur) => {
-                        total += cur.Order_Product.price
-                        return total
-                      }, 0) / (100).toFixed(2)}
+                      {(
+                        cart.reduce((total, cur) => {
+                          total += cur.Order_Product.price
+                          return total
+                        }, 0) / 100
+                      ).toFixed(2)}
                     </td>
                   </tr>
                 </tbody>
