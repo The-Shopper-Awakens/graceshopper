@@ -32,6 +32,30 @@ router.post('/guestcheckout', async (req, res, next) => {
         ProductId: item.productId
       })
     })
+    const localOrder = JSON.parse(this.window.localStorage.getItem('cart'))
+    const transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+        user: 'graceshoppernode@gmail.com',
+        pass: 'jessetim1'
+      }
+    })
+    const mailOptions = {
+      from: `Grace Shopper <graceshoppernode@gmail.com>`,
+      to: `${window.localStorage.userInfo.email}`,
+      subject: `Your order`,
+      text: `You ordered: ${JSON.stringify(
+        localOrder.map(item => item.quantity + ' x ' + item.name + ' ')
+      )}`
+    }
+
+    transporter.sendMail(mailOptions, function(err, rest) {
+      if (err) {
+        console.error('there was an error: ', err)
+      } else {
+        console.log('here is the res: ', rest)
+      }
+    })
     res.sendStatus(201)
   } catch (error) {
     next(error)
@@ -135,28 +159,17 @@ router.get('/checkout', async (req, res) => {
         pass: 'jessetim1'
       }
     })
-    let mailOptions
-    req.user.email
-      ? (mailOptions = {
-          from: `Grace Shopper <graceshoppernode@gmail.com>`,
-          to: `${req.user.email}`,
-          subject: `Your order`,
-          text: `You ordered: ${JSON.stringify(
-            orderToBeCheckedOut.Products.map(
-              item => item.Order_Product.quantity + ' x ' + item.name + ' '
-            )
-          )}`
-        })
-      : (mailOptions = {
-          from: `Grace Shopper <graceshoppernode@gmail.com>`,
-          to: `${window.localStorage.userInfo.email}`,
-          subject: `Your order`,
-          text: `You ordered: ${JSON.stringify(
-            orderToBeCheckedOut.Products.map(
-              item => item.Order_Product.quantity + ' x ' + item.name + ' '
-            )
-          )}`
-        })
+    const mailOptions = {
+      from: `Grace Shopper <graceshoppernode@gmail.com>`,
+      to: `${req.user.email}`,
+      subject: `Your order`,
+      text: `You ordered: ${JSON.stringify(
+        orderToBeCheckedOut.Products.map(
+          item => item.Order_Product.quantity + ' x ' + item.name + ' '
+        )
+      )}`
+    }
+
     transporter.sendMail(mailOptions, function(err, rest) {
       if (err) {
         console.error('there was an error: ', err)
