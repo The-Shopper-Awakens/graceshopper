@@ -82,6 +82,19 @@ export const fetchRemoveItem = productId => {
   }
 }
 
+export const getTotalQuantity = () => {
+  return async () => {
+    try {
+      const {data} = await Axios.get('/api/cart')
+      let quant = 0
+      data.map(item => quant + item.Order_Product.quantity)
+      return quant
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
 export const fetchItems = () => {
   return async dispatch => {
     try {
