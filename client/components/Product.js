@@ -66,32 +66,44 @@ class Product extends React.Component {
         <h1>No Product Found</h1>
       </div>
     ) : (
-      <div className="container">
-        <div className="singleProduct">
-          <div>{product.name}</div>
-          <div>Price: ${product.price}</div>
-          <img src={product.imageUrl} />
-
-          {this.props.isLoggedIn ? (
-            <button
-              type="submit"
-              onClick={() => this.handleAddToCartButton(product.id)}
-            >
-              Add To Cart
-            </button>
-          ) : (
-            <button type="button" onClick={this.handleAddToLocalStorage}>
-              Add To Cart
-            </button>
-          )}
-          {this.props.user.userType === 'ADMIN' ? (
-            <div>
-              <EditProduct />
+      <div className="APcontainer">
+        <div className="container">
+          <div className="singleProduct">
+            <div className="SPLeft">
+              <img className="singleProductImg" src={product.imageUrl} />
             </div>
-          ) : (
-            <div />
-          )}
+            <div className="SPRight">
+              <h2>{product.name}</h2>
+              <h2>Price: ${product.price}</h2>
+              <div>
+                {this.props.isLoggedIn ? (
+                  <button
+                    className="addToCartButton"
+                    type="submit"
+                    onClick={() => this.handleAddToCartButton(product.id)}
+                  >
+                    Add To Cart
+                  </button>
+                ) : (
+                  <button
+                    className="addToCartButton"
+                    type="button"
+                    onClick={this.handleAddToLocalStorage}
+                  >
+                    Add To Cart
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
+        {this.props.user.userType === 'ADMIN' ? (
+          <div>
+            <EditProduct />
+          </div>
+        ) : (
+          <div />
+        )}
       </div>
     )
   }

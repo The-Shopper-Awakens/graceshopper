@@ -44,7 +44,7 @@ class AddProduct extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="addEditBox">
         <button
           type="button"
           className="addButton"
@@ -52,10 +52,10 @@ class AddProduct extends React.Component {
         >
           Add a New Product
         </button>
-        <form onSubmit={this.handleSubmit}>
-          <div className="form">
+        <form className="form" onSubmit={this.handleSubmit}>
+          <div>
             <div>
-              <div>
+              <div className="formLine">
                 <label htmlFor="name">Product Name: </label>
                 <input
                   type="text"
@@ -84,6 +84,8 @@ class AddProduct extends React.Component {
                   }
                   disabled={this.state.disableEditing}
                 />
+              </div>
+              <div className="formLine">
                 <label htmlFor="inventory"> Inventory: </label>
                 <input
                   type="number"
@@ -98,8 +100,6 @@ class AddProduct extends React.Component {
                   }
                   disabled={this.state.disableEditing}
                 />
-              </div>
-              <div>
                 <label htmlFor="category"> Category: </label>
                 <input
                   type="text"
@@ -108,6 +108,8 @@ class AddProduct extends React.Component {
                   onChange={this.handleChange}
                   disabled={this.state.disableEditing}
                 />
+              </div>
+              <div className="formLine">
                 <label htmlFor="imageUrl"> Image URL: </label>
                 <input
                   type="text"
@@ -118,7 +120,7 @@ class AddProduct extends React.Component {
                 />
               </div>
             </div>
-            <div>
+            <div id="newProductSubmitBox">
               <button
                 className="submitButton"
                 type="submit"

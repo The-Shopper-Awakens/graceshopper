@@ -1,20 +1,23 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Product from './ProductList'
-import AddProduct from './AddProduct'
 import {fetchProducts} from '../store/allProducts'
 
-export class AllProducts extends React.Component {
+export class CategoryView extends React.Component {
   componentDidMount() {
+    console.log(this.props)
     this.props.getProducts()
   }
 
   render() {
-    const products = this.props.products || []
+    console.log(this.props)
+    let category = this.props.match.params.name
+    let products = this.props.products || []
+    products = products.filter(item => item.category === category)
 
     return (
-      <div className="APcontainer">
-        <h1>All Products</h1>
+      <div className="container">
+        <h1>{category}</h1>
         <div className="allProducts">
           <ul className="productList">
             {products.map(product => (
@@ -23,14 +26,7 @@ export class AllProducts extends React.Component {
               </div>
             ))}
           </ul>
-        </div>{' '}
-        {this.props.user.userType === 'ADMIN' ? (
-          <div>
-            <AddProduct />
-          </div>
-        ) : (
-          <div />
-        )}
+        </div>
       </div>
     )
   }
@@ -49,4 +45,4 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(mapState, mapDispatch)(AllProducts)
+export default connect(mapState, mapDispatch)(CategoryView)

@@ -12,7 +12,6 @@ import axios from 'axios'
 import CartItem from './cartItem'
 
 
-
 class Cart extends React.Component {
   constructor() {
     super()
