@@ -1,7 +1,10 @@
 import React from 'react'
 import {CheckoutCartItem} from './index'
 export function Checkout(props) {
-  const cart = props.location.state.data.Products
+  let cart
+  props.location.state
+    ? (cart = props.location.state.data.Products)
+    : (cart = [])
 
   return (
     <div className="container">
