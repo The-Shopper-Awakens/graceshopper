@@ -364,3 +364,23 @@ td {
 .trademark {
   margin: 1em;
 }
+
+.userContainer {
+  display: flex;
+  width: 80%;
+  padding: 1em;
+  border: solid black 0.25em;
+  margin-top: 1em;
+}
+
+.userInfo {
+  flex: 1;
+  border: solid red 1px;
+  margin: 1em;
+}
+
+.pastOrders {
+  flex: 2;
+  border: solid blue 1px;
+  margin: 1em;
+}
