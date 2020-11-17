@@ -44,6 +44,9 @@ class Cart extends React.Component {
     //   currency: 'usd',
     // })
     // this.props.history.push('/paymentForm', {clientSecret: data.clientSecret})
+    // this.props.checkout()
+    const {data} = await axios.get('/api/cart/checkout')  
+    this.props.history.push('/checkout', {data: data})
   }
 
   render() {
@@ -81,6 +84,7 @@ class Cart extends React.Component {
                     <td />
                     <td id="cartTotal">Total:</td>
                     <td id="totalAmmount">${totalAmount}</td>
+
                   </tr>
                 </tbody>
               </table>

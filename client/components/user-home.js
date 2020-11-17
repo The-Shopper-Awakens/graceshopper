@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import UserProfile from './UserProfile'
 
 /**
  * COMPONENT
@@ -11,6 +12,7 @@ export const UserHome = props => {
   return (
     <div className="container">
       <h3>Welcome, {email}</h3>
+      <UserProfile />
     </div>
   )
 }
