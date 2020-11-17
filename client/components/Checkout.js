@@ -3,7 +3,6 @@ import {CheckoutCartItem} from './index'
 export function Checkout(props) {
   const cart = props.location.state.data.Products
 
-  console.log(cart)
   return (
     <div className="container">
       <div className="cartBox">

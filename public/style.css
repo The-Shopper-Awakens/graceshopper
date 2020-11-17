@@ -308,3 +308,7 @@ td {
 .addToCartButton {
   padding: 1em;
 }
+
+.hidden {
+  visibility: hidden;
+}
