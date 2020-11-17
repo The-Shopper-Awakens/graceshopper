@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import CartItem from './CartItem'
+
 import {
   fetchItems,
   fetchUpdateQuantity,
@@ -8,6 +8,11 @@ import {
   fetchCheckoutAction
 } from '../store/cart'
 import axios from 'axios'
+
+import CartItem from './cartItem'
+
+
+
 class Cart extends React.Component {
   constructor() {
     super()
