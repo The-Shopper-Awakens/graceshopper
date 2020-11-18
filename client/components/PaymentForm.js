@@ -1,16 +1,20 @@
 import React, {useState, useEffect} from 'react'
 import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js'
 import axios from 'axios'
+import history from '../history'
 export function PaymentForm(props) {
   const [succeeded, setSucceeded] = useState(false)
   const [error, setError] = useState(null)
   const [processing, setProcessing] = useState('')
   const [disabled, setDisabled] = useState(true)
   const [clientSecret, setClientSecret] = useState('')
+  const [email, setEmail] = useState('')
+  const [amount, setAmount] = useState(0)
   const stripe = useStripe()
   const elements = useElements()
   useEffect(() => {
-    setClientSecret(props.location.state.clientSecret)
+    setClientSecret(props.clientSecret)
+    console.log(props.clientSecret)
   })
   const cardStyle = {
     style: {
@@ -29,7 +33,6 @@ export function PaymentForm(props) {
       }
     }
   }
-  console.log(succeeded)
   const handleChange = async event => {
     // Listen for changes in the CardElement
     // and display any errors as the customer types their card details
@@ -39,8 +42,10 @@ export function PaymentForm(props) {
   const handleSubmit = async ev => {
     ev.preventDefault()
     setProcessing(true)
+    setEmail(props.email)
     const payload = await stripe.confirmCardPayment(clientSecret, {
       // eslint-disable-next-line camelcase
+      receipt_email: props.email,
       payment_method: {
         card: elements.getElement(CardElement)
       }
@@ -52,9 +57,19 @@ export function PaymentForm(props) {
       setError(null)
       setProcessing(false)
       setSucceeded(true)
+
+      await axios.get('/api/cart/checkout')
     }
   }
-  return (
+
+  return succeeded ? (
+    <div>
+      {history.push('/paymentSucceeded', {
+        amount: props.amount,
+        email: email
+      })}
+    </div>
+  ) : (
     <form id="payment-form" onSubmit={handleSubmit}>
       <CardElement
         id="card-element"
@@ -76,15 +91,6 @@ export function PaymentForm(props) {
           {error}
         </div>
       )}
-      {/* Show a success message upon completion */}
-      <p className={succeeded ? 'message' : 'hidden'}>
-        Payment succeeded, see the result in your
-        <a href="https://dashboard.stripe.com/test/payments">
-          {' '}
-          Stripe dashboard.
-        </a>{' '}
-        Refresh the page to pay again.
-      </p>
     </form>
   )
 }
