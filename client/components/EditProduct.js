@@ -45,6 +45,7 @@ class EditProduct extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props.product)
     this.setState({
       name: this.props.product.name,
       price: this.props.product.price,
@@ -55,6 +56,7 @@ class EditProduct extends React.Component {
   }
 
   render() {
+    console.log('rendering')
     return (
       <div className="addEditBox">
         <button
@@ -62,7 +64,12 @@ class EditProduct extends React.Component {
           className="addButton"
           onClick={() =>
             this.setState({
-              disableEditing: false
+              disableEditing: false,
+              name: this.props.product.name,
+              price: this.props.product.price,
+              category: this.props.product.category,
+              inventory: this.props.product.inventory,
+              imageUrl: this.props.product.imageUrl
             })
           }
         >
@@ -173,7 +180,6 @@ class EditProduct extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    product: state.product,
     user: state.user
   }
 }
