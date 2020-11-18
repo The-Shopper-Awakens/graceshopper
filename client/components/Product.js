@@ -62,6 +62,7 @@ class Product extends React.Component {
     const productId = this.props.match.params.productId
     this.props.getProduct(productId)
   }
+
   handleAddToCartButton(productId) {
     'invoking handleaddtocartButton'
     toast.success('Added to cart!')
@@ -109,7 +110,7 @@ class Product extends React.Component {
         </div>
         {this.props.user.userType === 'ADMIN' ? (
           <div>
-            <EditProduct />
+            <EditProduct product={product} />
           </div>
         ) : (
           <div />
