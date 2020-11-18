@@ -11,7 +11,8 @@ import {
   Checkout,
   Payment,
   PaymentForm,
-  GuestCheckout
+  GuestCheckout,
+  PaymentSucceeded
 } from './components'
 import {me} from './store'
 import AllProducts from './components/AllProducts'
@@ -41,9 +42,9 @@ class Routes extends Component {
           <Route path="/guestcart" component={GuestCart} />
           <Route path="/categoryview/:name" component={CategoryView} />
           <Route path="/checkout" component={Checkout} />
-          <Route path="/payment" component={Payment} />
           <Route path="/PaymentForm" component={PaymentForm} />
           <Route path="/guestcheckout" component={GuestCheckout} />
+          <Route path="/paymentSucceeded" component={PaymentSucceeded} />
           {isLoggedIn && (
             <Switch>
               {/* Routes placed here are only available after logging in */}

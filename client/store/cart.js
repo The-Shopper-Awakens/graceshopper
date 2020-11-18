@@ -30,8 +30,8 @@ export const addItemAction = item => {
   }
 }
 
-const checkout = cart => {
-  return {type: CHECKOUT, cart}
+const checkout = invoice => {
+  return {type: CHECKOUT, invoice}
 }
 
 export const addItem = productId => {
@@ -110,6 +110,7 @@ export const fetchCheckoutAction = () => {
   return async dispatch => {
     try {
       const {data} = await Axios.put('/api/cart/checkout')
+      console.log(data)
       dispatch(checkout(data))
     } catch (error) {
       console.log(error)
@@ -128,7 +129,7 @@ export default (state = initialState, action) => {
     case UPDATE_QUANTITY:
       return action.cart
     case CHECKOUT:
-      return action.cart
+      return action.invoice //returns the order
     default:
       return state
   }

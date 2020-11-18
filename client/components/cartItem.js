@@ -1,12 +1,9 @@
 import React from 'react'
 
 class CartItem extends React.Component {
-  componentDidMount() {
-    console.log('item.js is mounting...')
-  }
+  componentDidMount() {}
   render() {
     const {product} = this.props
-    console.log('item.js is rendering...', product)
     const price = (product.Order_Product.price / 100).toFixed(2)
     return !product.Order_Product.quantity ? (
       <div>Loading...</div>

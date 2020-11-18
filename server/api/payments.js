@@ -4,13 +4,6 @@ const stripe = require('stripe')(
 )
 
 module.exports = stripe
-const postStripeCharge = res => (stripeErr, stripeRes) => {
-  if (stripeErr) {
-    res.status(500).send({error: stripeErr})
-  } else {
-    res.status(200).send({success: stripeRes})
-  }
-}
 
 router.post('/createPayment', async (req, res) => {
   try {
@@ -22,21 +15,5 @@ router.post('/createPayment', async (req, res) => {
     res.sendStatus(error)
   }
 })
-// router.post('/confirmPayment', async (req, res) => {
-//   try {
-//     const confirmPI = await stripe.paymentIntents.confirm(req.body)
-//     res.json(confirmPI)
-//   } catch (error) {
-//     res.sendStatus(error)
-//   }
-// })
 
-// router.post('/capturePayment', async (req, res) => {
-//   try {
-//     const capturePI = await stripe.paymentIntents.capture(req.body)
-//     res.json(capturePI)
-//   } catch (error) {
-//     res.sendStatus(error)
-//   }
-// })
 module.exports = router
