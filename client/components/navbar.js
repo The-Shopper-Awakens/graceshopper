@@ -5,9 +5,10 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import CartPreview from './cartPreview'
 import {getTotalQuantity} from '../store/cart'
+import history from '../history'
 
 import NotificationBadge from 'react-notification-badge'
-import {from} from 'nodemailer/lib/smtp-connection/data-stream'
+//import {from} from 'nodemailer/lib/smtp-connection/data-stream'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
@@ -19,18 +20,25 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         </div>
         <div id="rightSide">
           <div id="searchLinkBox">
-            <div id="searchBox">
-              <form>
+            <div className="searchBox">
+              <form
+                className="searchBox"
+                onSubmit={event => {
+                  event.preventDefault()
+                  let searchBar = document.getElementById('searchBar')
+                  history.push(`/categoryview/${searchBar.value}`)
+                }}
+              >
                 <input
                   id="searchBar"
                   type="text"
                   placeholder="Search for great outdoor gear"
                   size="40"
                 />
+                <button type="submit">
+                  <i className="fa fa-search" />
+                </button>
               </form>
-              <button type="submit">
-                <i className="fa fa-search" />
-              </button>
             </div>
             {isLoggedIn ? (
               <div>
@@ -43,8 +51,11 @@ const Navbar = ({handleClick, isLoggedIn}) => (
                 </a>
                 <Link to="/cart" className="navLink" id="cartLink">
                   Cart
-                  <img className="cartImage" src="/images/Shopping-Cart-icon" />
-                  <NotificationBadge count={getTotalQuantity} />
+                  <img
+                    className="cartImage"
+                    src="/images/Shopping-Cart-icon.png"
+                  />
+                  {/* <NotificationBadge count={getTotalQuantity} /> */}
                 </Link>
                 {/* <div id="cartPreview">
                   <CartPreview />
@@ -60,8 +71,11 @@ const Navbar = ({handleClick, isLoggedIn}) => (
                   Sign Up
                 </Link>
                 <Link to="/guestcart" className="navLink" id="cartLink">
-                  <img className="cartImage" src="/images/Shopping-Cart-icon" />
                   Cart
+                  <img
+                    className="cartImage"
+                    src="/images/Shopping-Cart-icon.png"
+                  />
                 </Link>
                 {/* <div id="cartPreview">
                   <CartPreview />

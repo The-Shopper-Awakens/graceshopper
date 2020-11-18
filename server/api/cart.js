@@ -21,10 +21,24 @@ router.get('/', async (req, res) => {
   }
 })
 
+router.get('/orders', async (req, res, next) => {
+  try {
+    const orders = await Order.findAll({
+      where: {isOrder: true, userId: req.user.id},
+      include: Product
+    })
+    res.json(orders)
+  } catch (error) {
+    res.sendStatus(error)
+  }
+})
+
 router.post('/guestcheckout', async (req, res, next) => {
+  console.log(req.body.cart)
+  console.log(req.body.email)
   try {
     const order = await Order.create({isOrder: true})
-    req.body.forEach(item => {
+    req.body.cart.forEach(item => {
       Order_Product.create({
         quantity: item.quantity,
         price: parseInt(item.price * 100),
@@ -32,7 +46,7 @@ router.post('/guestcheckout', async (req, res, next) => {
         ProductId: item.productId
       })
     })
-    const localOrder = JSON.parse(this.window.localStorage.getItem('cart'))
+    const localOrder = req.body.cart
     const transporter = nodemailer.createTransport({
       service: 'Gmail',
       auth: {
@@ -42,7 +56,7 @@ router.post('/guestcheckout', async (req, res, next) => {
     })
     const mailOptions = {
       from: `Grace Shopper <graceshoppernode@gmail.com>`,
-      to: `${window.localStorage.userInfo.email}`,
+      to: `${req.body.email}`,
       subject: `Your order`,
       text: `You ordered: ${JSON.stringify(
         localOrder.map(item => item.quantity + ' x ' + item.name + ' ')

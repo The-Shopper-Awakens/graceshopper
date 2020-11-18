@@ -26,13 +26,14 @@ class GuestCheckoutForm extends React.Component {
     event.preventDefault()
     //get cart data from local storage
     let cart = JSON.parse(window.localStorage.getItem('cart'))
+    let email = this.state.email
     //put user data in local storage
     window.localStorage.setItem('userInfo', JSON.stringify(this.state))
     //let userInfo = JSON.parse(window.localStorage.getItem('userInfo'))
     //console.log(userInfo)
     //console.log(cart)
     //create a new Order instance and a new Order_Products instance
-    await axios.post('/api/cart/guestcheckout', cart)
+    await axios.post('/api/cart/guestcheckout', {cart, email})
     //make a local storage order and empty cart
     window.localStorage.setItem('order', JSON.stringify(cart))
     window.localStorage.setItem('cart', JSON.stringify([]))
