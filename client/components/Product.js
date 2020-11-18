@@ -64,7 +64,7 @@ class Product extends React.Component {
   }
   handleAddToCartButton(productId) {
     'invoking handleaddtocartButton'
-    toast.info('Added to cart!')
+    toast.success('Added to cart!')
     this.props.addItemToCart(productId)
   }
 

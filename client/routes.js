@@ -10,7 +10,7 @@ import {
   GuestCart,
   Checkout,
   Payment,
-  PaymentForm
+  PaymentForm,
   GuestCheckout
 } from './components'
 import {me} from './store'
