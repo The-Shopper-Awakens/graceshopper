@@ -56,7 +56,11 @@ export class CategoryView extends React.Component {
 
     return (
       <div className="container">
-        <h1>{category}</h1>
+        {products.length !== 0 ? (
+          <h1>All {category}</h1>
+        ) : (
+          <h2>Could not find products with category: "{category}"</h2>
+        )}
         <div className="allProducts">
           <ul className="productList">
             {products.map(product => (
