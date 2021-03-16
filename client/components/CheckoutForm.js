@@ -47,7 +47,8 @@ export class CheckoutForm extends React.Component {
       <div className="checkoutBox">
         <div className="checkoutLeft">
           <div className="stripePlaceholder">
-            <h1>Stripe Placeholder</h1>
+            <h1>Stripe Payment</h1>
+            <p>Use card number: 4242 4242 4242 4242</p>
             <PaymentForm
               amount={this.props.amount}
               email={this.state.email}

@@ -49,6 +49,7 @@ class GuestCheckoutForm extends React.Component {
         <div className="checkoutLeft">
           <div className="stripePlaceholder">
             <h1>Stripe Placeholder</h1>
+            <p>Use card number: 4242 4242 4242 4242</p>
           </div>
         </div>
         <div className="checkoutRight">

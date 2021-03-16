@@ -10,26 +10,52 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div className="container">
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
+    <div className="container" style={{}}>
+      <div
+        style={{
+          border: 'solid black 3px',
+          borderRadius: '5px',
+          width: '75%',
+          height: '10em',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-around'
+        }}
+      >
+        <h1>Let's get personal ---{'>'}</h1>
+        <div style={{width: '216px', display: 'flex', alignItems: 'center'}}>
+          <form onSubmit={handleSubmit} name={name}>
+            <div style={{marginBottom: '.5em'}}>
+              <label htmlFor="email">
+                <small style={{marginRight: '20px'}}>Email: </small>
+              </label>
+              <input name="email" type="text" />
+            </div>
+            <div style={{marginBottom: '.5em'}}>
+              <label htmlFor="password">
+                <small>Password: </small>
+              </label>
+              <input name="password" type="password" />
+            </div>
+            <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+              <button
+                type="submit"
+                style={{
+                  paddingLeft: '51px',
+                  paddingRight: '51px',
+                  backgroundColor: '#317679',
+                  color: 'white',
+                  borderRadius: '5px'
+                }}
+              >
+                {displayName}
+              </button>
+            </div>
+            {error && error.response && <div> {error.response.data} </div>}
+          </form>
+          {/* <a href="/auth/google">{displayName} with Google</a> */}
         </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      <a href="/auth/google">{displayName} with Google</a>
+      </div>
     </div>
   )
 }

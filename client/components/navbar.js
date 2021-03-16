@@ -14,11 +14,11 @@ const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
     <nav>
       <div id="navBox">
-        <div id="logoBox">
+        <div id="logoBox" style={{marginRight: '2em'}}>
           <img id="logo" src="/images/logoOEI.png" />
           <div id="title">Outdoor Equipment Incorporated</div>
         </div>
-        <div id="rightSide">
+        <div id="rightSide" style={{width: '100%', minWidth: '585px'}}>
           <div id="searchLinkBox">
             <div className="searchBox">
               <form
@@ -33,7 +33,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
                   id="searchBar"
                   type="text"
                   placeholder="Search for great outdoor gear"
-                  size="40"
+                  size="30"
                 />
                 <button type="submit">
                   <i className="fa fa-search" />
@@ -41,7 +41,15 @@ const Navbar = ({handleClick, isLoggedIn}) => (
               </form>
             </div>
             {isLoggedIn ? (
-              <div>
+              <div
+                style={{
+                  padding: '1em',
+                  display: 'flex',
+                  width: '20vw',
+                  justifyContent: 'space-between',
+                  minWidth: '235px'
+                }}
+              >
                 {/* The navbar will show these links after you log in */}
                 <Link to="/home" className="navLink">
                   Home
@@ -51,10 +59,10 @@ const Navbar = ({handleClick, isLoggedIn}) => (
                 </a>
                 <Link to="/cart" className="navLink" id="cartLink">
                   Cart
-                  <img
+                  {/* <img
                     className="cartImage"
                     src="/images/Shopping-Cart-icon.png"
-                  />
+                  /> */}
                   {/* <NotificationBadge count={getTotalQuantity} /> */}
                 </Link>
                 {/* <div id="cartPreview">
@@ -62,7 +70,15 @@ const Navbar = ({handleClick, isLoggedIn}) => (
                 </div> */}
               </div>
             ) : (
-              <div>
+              <div
+                style={{
+                  padding: '1em',
+                  display: 'flex',
+                  width: '20vw',
+                  justifyContent: 'space-between',
+                  minWidth: '235px'
+                }}
+              >
                 {/* The navbar will show these links before you log in */}
                 <Link to="/login" className="navLink">
                   Login
@@ -72,10 +88,11 @@ const Navbar = ({handleClick, isLoggedIn}) => (
                 </Link>
                 <Link to="/guestcart" className="navLink" id="cartLink">
                   Cart
-                  <img
+                  {/* <img
                     className="cartImage"
                     src="/images/Shopping-Cart-icon.png"
-                  />
+                  /> */}
+                  {/* <NotificationBadge count={getTotalQuantity} /> */}
                 </Link>
                 {/* <div id="cartPreview">
                   <CartPreview />
