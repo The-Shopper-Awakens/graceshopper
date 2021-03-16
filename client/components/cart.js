@@ -23,7 +23,7 @@ class Cart extends React.Component {
     this.handleIncrementButton = this.handleIncrementButton.bind(this)
     this.handleDeincrementButton = this.handleDeincrementButton.bind(this)
     this.handleRemoveButton = this.handleRemoveButton.bind(this)
-    this.handleCheckout = this.handleCheckout.bind(this)
+    this.handle = this.handleCheckout.bind(this)
     this.handleProceedToPaymentButton = this.handleProceedToPaymentButton.bind(
       this
     )
@@ -49,7 +49,7 @@ class Cart extends React.Component {
     //   currency: 'usd',
     // })
     // this.props.history.push('/paymentForm', {clientSecret: data.clientSecret})
-    // this.props.checkout()
+    // this.props.()
     // const {data} = await axios.get('/api/cart/checkout')
     // this.props.history.push('/checkout', {data: data})
     this.props.checkout()
