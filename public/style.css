@@ -17,6 +17,7 @@ body {
   margin: 0;
   width: 100vw;
   min-height: 100vh;
+  min-width: 825px;
 }
 
 main {
@@ -38,6 +39,7 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
+  min-width: 825px;
 }
 
 #navBox {
